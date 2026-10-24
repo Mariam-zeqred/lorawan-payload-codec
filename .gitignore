@@ -1,0 +1,28 @@
+# secrets: the real LoRaWAN keys live in include/secrets.h, which is never committed
+include/secrets.h
+.env
+*.key
+*secrets*
+!include/secrets.example.h
+
+# python
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+dist/
+.venv/
+venv/
+
+# C / PlatformIO build output
+build/
+.pio/
+
+# node
+node_modules/
+
+# editors
+.vscode/
+.idea/
+*.swp

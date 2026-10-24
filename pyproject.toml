@@ -1,0 +1,19 @@
+[project]
+name = "lorawan-payload-codec"
+version = "0.1.0"
+description = "CayenneLPP and a 5-byte compact codec for a LoRaWAN sensor node: Python, C and JavaScript, byte-exact."
+requires-python = ">=3.11"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "N"]
