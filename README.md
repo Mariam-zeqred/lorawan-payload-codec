@@ -59,11 +59,12 @@ is now 26.9 °C: CayenneLPP's step is 0.1 °C. The Python `CayenneLPP` class and
 decoder also cover the other published types (digital/analog out, luminosity, presence,
 barometer, accelerometer, gyrometer, GPS); the C encoder covers the 1- and 2-byte ones.
 
-Every reading below is a real queen-bee incubator measurement (one every 10 minutes from the
-log in [incubator-telemetry-analysis](https://github.com/Mariam-zeqred/incubator-telemetry-analysis),
+Every reading below is a real queen-bee incubator measurement (one every 10 minutes from the log
+in [incubator-telemetry-analysis](https://github.com/Mariam-zeqred/incubator-telemetry-analysis),
 `examples/incubator_sample.json`). Two fields are not in that log: the battery is fixed at an
 illustrative 3.60 V (the logger is mains powered) and the alarm code is derived by the rule in
-`tools/make_sample.py` (1 = more than 2 °C below target, 2 = above). Output of `make example`:
+`tools/make_sample.py` (1 = more than 2 °C below target, 2 = above, 3 = door open, which never
+happens in this log). Output of `make example`:
 
 | time | temp | hum | batt | door | alarm | compact (FPort 1) | CayenneLPP (FPort 2) |
 |---|---|---|---|---|---|---|---|
