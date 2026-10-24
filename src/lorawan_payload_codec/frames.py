@@ -20,6 +20,11 @@ FORMATS = ("compact", "cayenne")
 
 
 def to_cayenne(r: Reading) -> bytes:
+    # the same node-level limits as the C encoder, so both refuse the same readings
+    if not 0 <= r.humidity_pct <= 100:
+        raise ValueError(f"humidity {r.humidity_pct} must be 0..100 %")
+    if not 0 <= r.alarm_code <= 31:
+        raise ValueError(f"alarm_code {r.alarm_code} must be 0..31")
     lpp = cayenne.CayenneLPP()
     lpp.temperature(CH_TEMPERATURE, r.temperature_c)
     lpp.humidity(CH_HUMIDITY, r.humidity_pct)

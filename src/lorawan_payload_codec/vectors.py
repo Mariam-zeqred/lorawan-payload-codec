@@ -79,7 +79,7 @@ def render_c(vectors: list[dict]) -> str:
         "typedef struct {",
         "  const char *name;",
         "  int32_t temp_centi;  // 0.01 degC",
-        "  uint16_t hum_deci;   // 0.1 %",
+        "  uint16_t hum_centi;  // 0.01 %",
         "  uint16_t batt_mv;",
         "  uint8_t door_open;",
         "  uint8_t alarm_code;",
@@ -94,7 +94,7 @@ def render_c(vectors: list[dict]) -> str:
         i = v["input"]
         lines.append(
             f'  {{"{v["name"]}", {round(i["temperature_c"] * 100)}, '
-            f"{round(i['humidity_pct'] * 10)}, {round(i['battery_v'] * 1000)}, "
+            f"{round(i['humidity_pct'] * 100)}, {round(i['battery_v'] * 1000)}, "
             f"{int(i['door_open'])}, {i['alarm_code']}, "
             f'"{v["compact"]["hex"]}", "{v["cayenne"]["hex"]}"}},'
         )
