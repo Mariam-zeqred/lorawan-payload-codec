@@ -34,6 +34,11 @@ def test_quantisation_is_the_documented_step():
     assert quantise(Reading(0, 67.3, 3.0, False)).humidity_pct == 67.5
 
 
+def test_half_steps_round_away_from_zero_like_the_c_encoder():
+    assert quantise(Reading(26.855, 60.25, 3.615, False)) == Reading(26.86, 60.5, 3.62, False, 0)
+    assert quantise(Reading(-12.345, 0.25, 2.005, False)) == Reading(-12.35, 0.5, 2.01, False, 0)
+
+
 @pytest.mark.parametrize(
     ("reading", "msg"),
     [

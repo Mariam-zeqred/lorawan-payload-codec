@@ -48,6 +48,13 @@ def test_every_type_round_trips():
     assert len(lpp) == sum(2 + cayenne.BY_NAME[n].size for n in sample)
 
 
+def test_half_step_rounds_away_from_zero_not_half_even():
+    # round(26.85 / 0.1) == 268 in Python; the codec must say 269 like the C encoder does
+    assert CayenneLPP().temperature(1, 26.85).bytes.hex() == "0167010d"
+    assert CayenneLPP().temperature(1, -26.85).bytes.hex() == "0167fef3"
+    assert CayenneLPP().humidity(1, 60.25).bytes.hex() == "016879"
+
+
 def test_range_and_size_errors():
     with pytest.raises(ValueError, match="outside"):
         CayenneLPP().humidity(1, 128.0)

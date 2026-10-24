@@ -3,7 +3,7 @@ decoder test.  `python -m lorawan_payload_codec vectors` rewrites tests/vectors.
 lib/payload_codec/test_vectors.h; tests/test_vectors.py fails if the committed files are stale.
 
 The vectors are the 35 real incubator readings in examples/incubator_sample.json plus the edge
-cases below (range limits, negative temperature, rounding at a half step, door open, alarm 31).
+cases below (range limits, negative temperature, half steps in both signs, door open, alarm 31).
 """
 
 from __future__ import annotations
@@ -25,8 +25,9 @@ EDGE_CASES = [
     ("compact temperature limits", Reading(-327.68, 100.0, 4.55, True, 31)),
     ("compact temperature maximum", Reading(327.67, 50.0, 3.00, False, 7)),
     ("door open, alarm 3", Reading(31.95, 70.5, 3.60, True, 3)),
-    ("half-step humidity rounds (Python round-half-even)", Reading(25.0, 60.25, 3.70, False, 0)),
-    ("odd 10 mV battery, 0.1 degC half step", Reading(26.85, 55.0, 3.615, False, 2)),
+    ("half steps round away from zero", Reading(26.85, 60.25, 3.615, False, 2)),
+    ("negative half step rounds away from zero", Reading(-12.35, 0.25, 2.005, False, 0)),
+    ("float trap: 26.85/0.1 is 268.49999 in binary", Reading(0.15, 99.75, 4.545, True, 1)),
     ("cold store", Reading(-25.0, 90.0, 2.50, False, 5)),
     ("hot overshoot", Reading(45.6, 33.0, 4.19, False, 2)),
 ]

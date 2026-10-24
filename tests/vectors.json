@@ -149,9 +149,9 @@
   },
   "cayenne": {
    "fport": 2,
-   "hex": "0167014602689103020168040000050000",
+   "hex": "0167014702689103020168040000050000",
    "decoded": {
-    "temperature_c": 32.6,
+    "temperature_c": 32.7,
     "humidity_pct": 72.5,
     "battery_v": 3.6,
     "door_open": false,
@@ -341,9 +341,9 @@
   },
   "cayenne": {
    "fport": 2,
-   "hex": "0167013002688a03020168040000050000",
+   "hex": "0167013102688a03020168040000050000",
    "decoded": {
-    "temperature_c": 30.4,
+    "temperature_c": 30.5,
     "humidity_pct": 69.0,
     "battery_v": 3.6,
     "door_open": false,
@@ -437,9 +437,9 @@
   },
   "cayenne": {
    "fport": 2,
-   "hex": "0167014b02689003020168040000050000",
+   "hex": "0167014c02689003020168040000050000",
    "decoded": {
-    "temperature_c": 33.1,
+    "temperature_c": 33.2,
     "humidity_pct": 72.0,
     "battery_v": 3.6,
     "door_open": false,
@@ -1280,52 +1280,20 @@
   }
  },
  {
-  "name": "half-step humidity rounds (Python round-half-even)",
-  "input": {
-   "temperature_c": 25.0,
-   "humidity_pct": 60.25,
-   "battery_v": 3.7,
-   "door_open": false,
-   "alarm_code": 0
-  },
-  "compact": {
-   "fport": 1,
-   "hex": "4009c478aa",
-   "decoded": {
-    "temperature_c": 25.0,
-    "humidity_pct": 60.0,
-    "battery_v": 3.7,
-    "door_open": false,
-    "alarm_code": 0
-   }
-  },
-  "cayenne": {
-   "fport": 2,
-   "hex": "016700fa02687803020172040000050000",
-   "decoded": {
-    "temperature_c": 25.0,
-    "humidity_pct": 60.0,
-    "battery_v": 3.7,
-    "door_open": false,
-    "alarm_code": 0
-   }
-  }
- },
- {
-  "name": "odd 10 mV battery, 0.1 degC half step",
+  "name": "half steps round away from zero",
   "input": {
    "temperature_c": 26.85,
-   "humidity_pct": 55.0,
+   "humidity_pct": 60.25,
    "battery_v": 3.615,
    "door_open": false,
    "alarm_code": 2
   },
   "compact": {
    "fport": 1,
-   "hex": "420a7d6ea2",
+   "hex": "420a7d79a2",
    "decoded": {
     "temperature_c": 26.85,
-    "humidity_pct": 55.0,
+    "humidity_pct": 60.5,
     "battery_v": 3.62,
     "door_open": false,
     "alarm_code": 2
@@ -1333,13 +1301,77 @@
   },
   "cayenne": {
    "fport": 2,
-   "hex": "0167010c02686e0302016a040000050002",
+   "hex": "0167010d0268790302016a040000050002",
    "decoded": {
-    "temperature_c": 26.8,
-    "humidity_pct": 55.0,
+    "temperature_c": 26.9,
+    "humidity_pct": 60.5,
     "battery_v": 3.62,
     "door_open": false,
     "alarm_code": 2
+   }
+  }
+ },
+ {
+  "name": "negative half step rounds away from zero",
+  "input": {
+   "temperature_c": -12.35,
+   "humidity_pct": 0.25,
+   "battery_v": 2.005,
+   "door_open": false,
+   "alarm_code": 0
+  },
+  "compact": {
+   "fport": 1,
+   "hex": "40fb2d0101",
+   "decoded": {
+    "temperature_c": -12.35,
+    "humidity_pct": 0.5,
+    "battery_v": 2.01,
+    "door_open": false,
+    "alarm_code": 0
+   }
+  },
+  "cayenne": {
+   "fport": 2,
+   "hex": "0167ff84026801030200c9040000050000",
+   "decoded": {
+    "temperature_c": -12.4,
+    "humidity_pct": 0.5,
+    "battery_v": 2.01,
+    "door_open": false,
+    "alarm_code": 0
+   }
+  }
+ },
+ {
+  "name": "float trap: 26.85/0.1 is 268.49999 in binary",
+  "input": {
+   "temperature_c": 0.15,
+   "humidity_pct": 99.75,
+   "battery_v": 4.545,
+   "door_open": true,
+   "alarm_code": 1
+  },
+  "compact": {
+   "fport": 1,
+   "hex": "61000fc8ff",
+   "decoded": {
+    "temperature_c": 0.15,
+    "humidity_pct": 100.0,
+    "battery_v": 4.55,
+    "door_open": true,
+    "alarm_code": 1
+   }
+  },
+  "cayenne": {
+   "fport": 2,
+   "hex": "016700020268c8030201c7040001050001",
+   "decoded": {
+    "temperature_c": 0.2,
+    "humidity_pct": 100.0,
+    "battery_v": 4.55,
+    "door_open": true,
+    "alarm_code": 1
    }
   }
  },

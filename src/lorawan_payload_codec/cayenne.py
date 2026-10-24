@@ -3,7 +3,8 @@
 Each item on the wire is  [channel][type][data...]  with big-endian data.  The type byte fixes
 the width, the sign and the scale of the data; the table below is the published CayenneLPP
 type list (myDevices "Cayenne LPP" reference, also the type table in The Things Network's
-built-in CayenneLPP decoder).  A field is stored as  round(value / scale)  in `size` bytes.
+built-in CayenneLPP decoder).  A field is stored as  value / scale  rounded half away
+from zero (rounding.py) in `size` bytes.
 
 Only the field types in `TYPES` are supported; an unknown type stops decoding with an error
 because the width of the data that follows it is unknown.
@@ -12,6 +13,8 @@ because the width of the data that follows it is unknown.
 from __future__ import annotations
 
 from dataclasses import dataclass
+
+from .rounding import steps
 
 MAX_PAYLOAD_BYTES = 51  # the EU868 SF12 application-payload limit, the smallest a node must fit
 
@@ -83,7 +86,7 @@ BY_NAME: dict[str, LppType] = {t.name: t for t in TYPES.values()}
 
 
 def _quantise(value: float, field: Field) -> int:
-    raw = round(value / field.scale)
+    raw = steps(value, field.scale)
     bits = 8 * field.size
     lo, hi = (-(1 << (bits - 1)), (1 << (bits - 1)) - 1) if field.signed else (0, (1 << bits) - 1)
     if not lo <= raw <= hi:
