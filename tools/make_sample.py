@@ -1,5 +1,5 @@
 """Build examples/incubator_sample.json from the real queen-bee incubator log kept in
-github.com/Mariam-zeqred/incubator-telemetry-analysis (data/hive-1C5A00_history_2026-10-03.json,
+the incubator-telemetry-analysis repository (private since 2026-11-21; data/hive-1C5A00_history_2026-10-03.json,
 1 367 readings at 15 s from one afternoon).  Usage:
 
     python tools/make_sample.py \
